@@ -70,7 +70,7 @@ class Render(object):
         f.close()
 
         #Referencia del repositorio ejemplo de dennis
-    def glFinish(self, filename='Teddys.bmp'):
+    def glFinish(self, filename='Spheres.bmp'):
         self.write(filename)
 
     def scene_intersect(self, orig, direction):
