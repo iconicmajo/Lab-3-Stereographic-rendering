@@ -5,9 +5,9 @@
 #snowman
 
 import struct 
-from materials import coal, snow, ivory, carrot,white,red
+from materials import coal, snow, ivory, carrot,white,red, green, yellow
 from sphere import Sphere
-from mathfunc import norm, V3, color, char,dword, word, sub, length, dot, mul,reflect
+from mathfunc import norm, V3, color, char,dword, word, sub, length, dot, mul,reflect,sum
 from collections import namedtuple
 import random
 from numpy import matrix, cos, sin, tan, pi
@@ -103,7 +103,7 @@ class Render(object):
         light_distance = length(sub(self.light.position, intersect.point))
 
         offset_normal = mul(intersect.normal, 1.1)  # avoids intercept with itself
-        shadow_orig = sub(intersect.point, offset_normal) if dot(light_dir, intersect.normal) < 0 else sub(intersect.point, offset_normal)
+        shadow_orig = sub(intersect.point, offset_normal) if dot(light_dir, intersect.normal) < 0 else sum(intersect.point, offset_normal)
         shadow_material, shadow_intersect = self.scene_intersect(shadow_orig, light_dir)
         shadow_intensity = 0
 
@@ -141,9 +141,14 @@ r.light = Light(
     intensity = 1.5
 )
 r.scene = [
-    #snowballs
-    Sphere(V3(3.3,0,-10), 1.5, red),
-    Sphere(V3(-3.3,0,-10), 1.5, red)
+  
+    #balls
+    Sphere(V3(0,3,-10), 1.5, red),
+    Sphere(V3(-3,3,-10), 1.5, green),
+    Sphere(V3(-3,-3,-10), 1.5, green),
+    Sphere(V3(0,-3,-10), 1.5, red),
+    Sphere(V3(3,3,-10), 1.5, yellow),
+    Sphere(V3(3,-3,-10), 1.5, yellow),
 ]
 r.render()
 r.glFinish()
